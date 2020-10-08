@@ -1,0 +1,72 @@
+/*
+Matheus Henrique de Sousa
+obi 2013 - p2f2 - torneio
+*/
+#include<bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+#define int long long
+#define pb push_back
+#define sz(x) (int)x.size()
+
+typedef pair<int,int>pii;
+typedef vector<int> vi;
+typedef vector<vi> vii;
+const int mxn=(1LL<<16)+5,M=1e9+7;
+const int LINF=0x3f3f3f3f3f3f3f3f;
+int n,k;
+int fat[mxn],inv[mxn],w[mxn];
+int mod(int a){int ret=a%M;if(ret<0)ret+=M;return ret;}
+int exp(int a,int b){
+  if(b==0LL)return 1LL;
+  if(b==1LL)return mod(a);
+  int t=exp(a,b/2);
+  if(b&1)return mod(a*mod(t*t));
+  return mod(t*t);
+}
+int C(int n,int k){return mod(fat[n]*mod(inv[k]*inv[n-k]));}
+int32_t main(void){
+  ios_base::sync_with_stdio(0); cin.tie(0); 
+  //setIO("test");
+  cin>>n>>k;
+  int pot=(1LL<<n);
+  int jog=(1LL<<(k-1));
+
+  fat[0]=inv[0]=1LL;
+  for(int i=1;i<mxn;i++){
+    fat[i]=(fat[i-1]*i)%M;
+    inv[i]=exp(fat[i],M-2);
+  }
+  for(int i=0;i<pot;i++)cin>>w[i];
+  sort(w+1,w+pot);
+
+  int cnt=0;
+  for(int i=1;i<pot;i++){
+    if(w[i]<w[0])cnt++;
+  }
+  if(cnt<jog-1 || (pot-1 == cnt && k!=n+1)){
+    cout<<0;
+    return 0;
+  }
+
+  int m1=C(cnt,jog-1);
+  m1=mod(m1*fat[jog]);
+  m1=mod(m1*(1<<(n-k+1)));
+  int m2=0;
+  for(int i=1;i<pot;i++){
+    if(w[i]>w[0]){
+      int tmp=i-jog;
+      if(tmp<jog-1)continue;
+      int cur=C(tmp,jog-1);
+      cur=mod(cur*fat[jog]);
+      cur=mod(cur*fat[(1<<n)-(1<<k)]);
+      m2=mod(m2+cur);
+
+    }
+  }
+  if(m2<=0)m1=mod(m1);
+  else m1=mod(m1*m2);
+  cout<<m1;
+  return 0;
+}
