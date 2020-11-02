@@ -1,5 +1,7 @@
 /*Matheus Henrique de Sousa
-Seletiva 2018 tentativa 0/100*/
+Seletiva 2018 tentativa (0/100)
+polícia e ladrão
+*/
 #include<bits/stdc++.h>
 using namespace std;
 
