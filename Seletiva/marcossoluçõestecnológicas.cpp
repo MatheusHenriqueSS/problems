@@ -1,6 +1,6 @@
 /*Matheus Henrique de Sousa
 Seletiva 2018 - tentativa (66/100)
-Marcos Soluções Tecnológicas*/
+marcos soluções tecnológicas*/
 #include<bits/stdc++.h>
 using namespace std;
 
