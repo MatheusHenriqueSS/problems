@@ -1,0 +1,80 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+#define pb push_back
+#define sz(x) (int)x.size()
+
+typedef pair<int,int>pii;
+typedef vector<int> vi;
+const int mxn=2e5+5;
+int len,n,a[mxn],res,Q,cnt[mxn];
+struct t{
+  int l,r,id; 
+};
+bool cmp(t a,t b){
+  return pii(a.l/len,a.r)<pii(b.l/len,b.r);
+}
+map<int,int>mp;
+//is it bb?
+//is it dp?
+//did you checked n=1?
+//did you checked mxn?
+void add(int x){
+  cnt[a[x]]++;
+  if(cnt[a[x]]==1)res++;
+}   
+void rmv(int x){
+  cnt[a[x]]--;
+  if(!cnt[a[x]]){
+    res--;
+  }
+}
+int g_ans(){
+  return res;
+}
+int32_t main(){
+  ios_base::sync_with_stdio(0);cin.tie(0);
+  cin>>n>>Q;
+  len=sqrt(n);
+  vi ans(Q);
+  vector<t> aux(Q);
+  for(int i=0;i<n;i++){
+    cin>>a[i];
+    mp[a[i]];
+  }
+  int N=1;
+  for(auto it=mp.begin();it!=mp.end();it++){
+    it->second=N;
+    N++;
+  }
+  for(int i=0;i<n;i++)a[i]=mp[a[i]];
+  for(int i=0;i<Q;i++){
+    cin>>aux[i].l>>aux[i].r;aux[i].l--;aux[i].r--;
+    aux[i].id=i;
+  }
+  sort(aux.begin(),aux.end(),cmp);
+  int c_l=0,c_r=-1;
+  for(t q:aux){
+    while(c_l>q.l){
+      c_l--;
+      add(c_l);
+    }
+    while(c_r<q.r){
+      c_r++;
+      add(c_r);
+    }
+    while(c_l<q.l){
+      rmv(c_l);
+      c_l++;
+    }
+    while(c_r>q.r){
+      rmv(c_r);
+      c_r--;
+    }
+    
+    ans[q.id]=g_ans();
+  }
+  for(int x:ans)cout<<x<<"\n";
+  return 0;
+}
