@@ -17,6 +17,7 @@ void setIO(string s) {
 const int mxn=1e4+5;
 int n,m,dp[mxn][2],lvl[mxn],cor[mxn],cnt=0;
 vi g[mxn];
+bool v[mxn];
 map<ii,int>mp;
 vi ans;
 void dfs(int i){
@@ -44,9 +45,10 @@ void dfs(int i){
 	dp[i][0]--;
 }
 void dfs1(int i){
+	v[i]=1;
 	for(int j:g[i]){	
 		if(lvl[j]==lvl[i]+1){
-			if(dp[i][1]==cnt && !dp[i][0])ans.pb(mp[{i,j}]);
+			if(dp[j][1]==cnt && !dp[j][0])ans.pb(mp[{i,j}]);
 			dfs1(j);
 		}
 		else if(lvl[j]+1!=lvl[i] && lvl[j]<lvl[i]){
@@ -66,16 +68,22 @@ int32_t main(){
 		mp[{x,y}]=i+1;
 		mp[{y,x}]=i+1;
 	}
-	lvl[1]=1;
-	dfs(1);
-	dp[1][0]++;
+	for(int i=1;i<=n;i++){
+		if(lvl[i])continue;
+		lvl[i]=1;
+		dfs(i);
+	}
 	if(!cnt){
 		cout<<m<<"\n";
 		for(int i=1;i<=m;i++)cout<<i<<" ";
 		cout<<"\n";
 		return 0;
 	}
-	dfs1(1);	
+	for(int i=1;i<=n;i++){
+		if(v[i])continue;
+		dfs1(i);
+	}
+	sort(ans.begin(),ans.end());
 	cout<<sz(ans)<<"\n";
 	for(int i:ans)cout<<i<<" ";
 	cout<<"\n";
