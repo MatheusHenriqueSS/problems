@@ -14,13 +14,10 @@ string s1,s2;
 int l1,l2,dp[mxN];
 int check(int l,int r){
     if(r-l+1<l1)return l;
-    int e=1;
     for(int i=0;i<l1;i++){
-        if(e==1){
-            if(s1[i]>s2[i+l])return l;
-            if(s1[i]<s2[i+l])return l+1;
-        }
-        else if(e==0 && s1[i]==s2[i+l])e=1;
+        if(s1[i]==s2[i+l])continue;
+        if(s1[i]>s2[i+l])return l;
+        if(s1[i]<s2[i+l])return l+1;        
     }
     return l;
 }
