@@ -26,7 +26,7 @@ void dfs(int i){
 		int j=p.first;
 		int k=p.second;
 		//esse cara sou eu?
-		if(j==i){
+		if(j!=i){
 			double nval=(double)k/2.0;
 			if(val!=0.0 && nval!=val){
 					ok=false;
