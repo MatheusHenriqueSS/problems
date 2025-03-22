@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void setIO(string s) {
+  ios_base::sync_with_stdio(0); cin.tie(0);cout.tie(0);
+  freopen((s+ ".in").c_str(),"r",stdin);
+  freopen((s+".out").c_str(),"w",stdout);
+}
+
+#define ll long long
+#define pb push_back
+#define sz(x) (int)x.size()
+#define endl "\n"
+
+typedef pair<int,int>ii;
+typedef vector<int> vi;
+
+void solve() {
+
+}
+
+#define int long long
+
+int32_t main(void) {
+    ios_base::sync_with_stdio(0); cin.tie(0);cout.tie(0);
+    //setIO("convention");
+    int n;cin>>n;
+    int tot = 0ll;
+    for(int i = 5ll; i <= n; i *= 5ll) {
+      tot += n /i;
+    }
+
+    cout<<tot<<endl;
+}
